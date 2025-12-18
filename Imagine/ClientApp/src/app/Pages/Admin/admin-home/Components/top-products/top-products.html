@@ -1,0 +1,29 @@
+<!-- Top Products -->
+<div class="dashboard-card">
+  <div class="card-header">
+    <div>
+      <h3 class="card-title">Top Products</h3>
+      <p class="card-subtitle">Best selling items</p>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="product-list" *ngIf="topProducts.length; else noTopProducts">
+      <div class="product-item" *ngFor="let product of topProducts">
+        <img
+          [src]="product.imageUrl || '/assets/images/hero-banner.png'"
+          alt="Product"
+          class="product-thumb"
+        >
+        <div class="product-info">
+          <h4 class="product-name">{{ product.name }}</h4>
+          <span class="product-sales">${{ product.price | number: '1.2-2' }}</span>
+        </div>
+        <span class="product-revenue">{{ product.viewCount | number }} views</span>
+      </div>
+    </div>
+
+    <ng-template #noTopProducts>
+      <p class="text-muted">No popular products found yet.</p>
+    </ng-template>
+  </div>
+</div>

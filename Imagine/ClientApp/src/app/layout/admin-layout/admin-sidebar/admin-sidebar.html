@@ -1,0 +1,78 @@
+<!-- Admin Sidebar -->
+<aside class="admin-sidebar" id="adminSidebar">
+  <div class="sidebar-content">
+    
+    <!-- Main Navigation -->
+    <nav class="sidebar-nav">
+      <div class="nav-section">
+        <span class="nav-section-title">Main</span>
+        
+        <a  routerLink="/admin/Home" routerLinkActive="active" class="nav-item ">
+          <i class="fas fa-home nav-icon"></i>
+          <span class="nav-text">Dashboard</span>
+        </a>
+        
+        <a class="nav-item" routerLink="/admin/analytics" routerLinkActive="active">
+          <i class="fas fa-chart-line nav-icon"></i>
+          <span class="nav-text">Analytics</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <span class="nav-section-title">Products</span>
+        
+        <a  class="nav-item" routerLink="/admin/products" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <i class="fas fa-box nav-icon"></i>
+          <span class="nav-text">All Products</span>
+          <span class="nav-badge" *ngIf="stats as s">{{ s.totalProducts | number }}</span>
+        </a>
+        
+        <a  routerLink="/admin/products/add" routerLinkActive="active" class="nav-item">
+          <i class="fas fa-plus-square nav-icon"></i>
+          <span class="nav-text">Add Product</span>
+        </a>
+        
+        <a  class="nav-item" routerLink="/admin/categories" routerLinkActive="active">
+          <i class="fas fa-tags nav-icon"></i>
+          <span class="nav-text">Categories</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <span class="nav-section-title">Orders</span>
+        
+        <a class="nav-item" routerLink="/admin/orders" routerLinkActive="active">
+          <i class="fas fa-shopping-cart nav-icon"></i>
+          <span class="nav-text">All Orders</span>
+          <span class="nav-badge warning" *ngIf="stats as s">{{ s.totalOrders | number }}</span>
+        </a>
+        
+        <a class="nav-item" routerLink="/admin/orders/pending" routerLinkActive="active">
+          <i class="fas fa-clock nav-icon"></i>
+          <span class="nav-text">Pending</span>
+        </a>
+        
+        <a class="nav-item" routerLink="/admin/orders/completed" routerLinkActive="active">
+          <i class="fas fa-check-circle nav-icon"></i>
+          <span class="nav-text">Completed</span>
+        </a>
+      </div>
+
+      <div class="nav-section">
+        <span class="nav-section-title">Customers</span>
+        
+        <a class="nav-item" routerLink="/admin/customers" routerLinkActive="active">
+          <i class="fas fa-users nav-icon"></i>
+          <span class="nav-text">All Customers</span>
+          <span class="nav-badge" *ngIf="stats as s">{{ s.totalCustomers | number }}</span>
+        </a>
+        
+      </div>
+
+   
+    </nav>
+
+  
+
+  </div>
+</aside>

@@ -1,0 +1,48 @@
+<!-- Recent Orders Table -->
+<div class="dashboard-card">
+  <div class="card-header">
+    <div>
+      <h3 class="card-title">Recent Orders</h3>
+      <p class="card-subtitle">Latest customer orders</p>
+    </div>
+    <button class="btn-link" routerLink="/admin/orders">View All <i class="fas fa-arrow-right"></i></button>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Product</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders">
+            <td><span class="order-id">#{{ order.orderNumber }}</span></td>
+            <td>
+              <div class="customer-cell">
+                <span>{{ order.userName || 'Customer' }}</span>
+              </div>
+            </td>
+            <td>{{ order.items && order.items.length ? order.items[0].productName : '—' }}</td>
+            <td>{{ order.orderDate | date: 'MMM d, y' }}</td>
+            <td><span class="amount">${{ order.totalAmount | number: '1.2-2' }}</span></td>
+            <td>
+              <span class="status-badge" [ngClass]="order.status.toLowerCase()">
+                {{ order.status }}
+              </span>
+            </td>
+            <td>
+              <button class="btn-icon" [routerLink]="['/admin/orders']"><i class="fas fa-eye"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

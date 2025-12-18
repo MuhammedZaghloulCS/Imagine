@@ -1,0 +1,48 @@
+<!-- Trending Products Section -->
+<section class="trending-products" id="trending" *ngIf="topPopular.length">
+  <!-- Section Background -->
+  <div class="trending-background">
+    <div class="trending-orb orb-left"></div>
+    <div class="trending-orb orb-right"></div>
+    
+    <!-- Floating Particles -->
+    <div class="bg-particles">
+      <span class="bg-particle"></span>
+      <span class="bg-particle"></span>
+      <span class="bg-particle"></span>
+      <span class="bg-particle"></span>
+      <span class="bg-particle"></span>
+    </div>
+  </div>
+
+  <div class="container position-relative">
+    <!-- Section Header -->
+    <div class="section-header text-center mb-5">
+      <div class="section-badge">
+        <span class="badge-dot"></span>
+        <span>Popular Designs</span>
+      </div>
+      <h2 class="section-title">
+        Trending <span class="gradient-text">Products</span>
+      </h2>
+      <p class="section-subtitle">
+        Discover our most popular AI-customized designs. Click colors to preview different variations
+      </p>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="row g-4 products-grid">
+      <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6" *ngFor="let product of topPopular">
+        <app-product-card [product]="product"></app-product-card>
+      </div>
+    </div>
+
+    <!-- View All Products Link -->
+    <div class="text-center mt-5">
+      <a routerLink="/Products" class="view-all-products">
+        <span>Explore All Products</span>
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</section>

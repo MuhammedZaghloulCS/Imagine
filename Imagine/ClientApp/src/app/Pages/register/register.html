@@ -1,0 +1,177 @@
+<section class="auth-page">
+  <div class="auth-background">
+    <div class="auth-orb orb-left"></div>
+    <div class="auth-orb orb-right"></div>
+    <div class="auth-grid"></div>
+  </div>
+
+  <div class="container position-relative">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-5">
+        <div class="auth-card">
+          <p class="auth-eyebrow">Create account</p>
+          <h1 class="auth-title">Join Imagine</h1>
+          <p class="auth-subtitle">
+            Let&apos;s create your smart profile — tailored by AI.
+          </p>
+
+          <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" novalidate>
+            <div class="mb-3">
+              <label class="form-label text-light">Full name</label>
+              <input
+                type="text"
+                name="fullName"
+                class="form-control auth-input"
+                [(ngModel)]="model.fullName"
+                #fullName="ngModel"
+                required
+                placeholder="Your full name"
+              />
+              <div
+                class="field-error"
+                *ngIf="fullName.invalid && (fullName.dirty || fullName.touched)"
+              >
+                <span *ngIf="fullName.errors?.['required']">
+                  Full name is required.
+                </span>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label text-light">Profile image (optional)</label>
+              <input
+                type="file"
+                name="profileImage"
+                class="form-control auth-input"
+                accept="image/*"
+                (change)="onProfileImageSelected($event)"
+              />
+              <small class="text-muted d-block mt-1" style="font-size: 0.75rem;">
+                PNG, JPG, or WebP. Square images look best.
+              </small>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label text-light">Email</label>
+              <input
+                type="email"
+                name="email"
+                class="form-control auth-input"
+                [(ngModel)]="model.email"
+                #email="ngModel"
+                required
+                email
+                placeholder="you@example.com"
+              />
+              <div
+                class="field-error"
+                *ngIf="email.invalid && (email.dirty || email.touched)"
+              >
+                <span *ngIf="email.errors?.['required']">Email is required.</span>
+                <span *ngIf="email.errors?.['email']">Please enter a valid email address.</span>
+              </div>
+            </div>
+
+            <div class="mb-3 position-relative">
+              <label class="form-label text-light">Password</label>
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                name="password"
+                class="form-control auth-input pe-5"
+                [(ngModel)]="model.password"
+                #password="ngModel"
+                required
+                minlength="8"
+                placeholder="Create a password"
+              />
+              <button
+                type="button"
+                class="password-toggle"
+                (click)="togglePasswordVisibility()"
+                aria-label="Toggle password visibility"
+              >
+                <i class="fas" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
+              </button>
+              <div
+                class="field-error"
+                *ngIf="password.invalid && (password.dirty || password.touched)"
+              >
+                <span *ngIf="password.errors?.['required']">Password is required.</span>
+                <span *ngIf="password.errors?.['minlength']">
+                  Password should be at least 8 characters long.
+                </span>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label text-light">Confirm password</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                class="form-control auth-input"
+                [(ngModel)]="model.confirmPassword"
+                #confirmPassword="ngModel"
+                required
+                minlength="8"
+                placeholder="Repeat your password"
+              />
+              <div
+                class="field-error"
+                *ngIf="(confirmPassword.dirty || confirmPassword.touched) && (confirmPassword.invalid || passwordsMismatch)"
+              >
+                <span *ngIf="confirmPassword.errors?.['required']">Please confirm your password.</span>
+                <span *ngIf="confirmPassword.errors?.['minlength']">
+                  Password should be at least 8 characters long.
+                </span>
+                <span *ngIf="!confirmPassword.errors && passwordsMismatch">
+                  Passwords do not match.
+                </span>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label text-light">Phone</label>
+              <input
+                type="tel"
+                name="phone"
+                class="form-control auth-input"
+                [(ngModel)]="model.phone"
+                #phone="ngModel"
+                required
+                [pattern]="phonePattern"
+                placeholder="e.g. +1 555 123 4567"
+              />
+              <div
+                class="field-error"
+                *ngIf="phone.invalid && (phone.dirty || phone.touched)"
+              >
+                <span *ngIf="phone.errors?.['required']">Phone number is required.</span>
+                <span *ngIf="phone.errors?.['pattern']">
+                  Please enter a valid phone number.
+                </span>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-primary-custom w-100 mb-2"
+              [disabled]="registerForm.invalid || submitting"
+              [ngClass]="{ 'button-loading': submitting }"
+            >
+              <ng-container *ngIf="!submitting">Create account</ng-container>
+              <ng-container *ngIf="submitting">
+                <span class="button-spinner"></span>
+                Setting things up...
+              </ng-container>
+            </button>
+          </form>
+
+          <p class="auth-footer text-center mb-0">
+            Already have an account?
+            <a routerLink="/Login" class="auth-link">Log in</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

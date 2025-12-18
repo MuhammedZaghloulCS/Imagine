@@ -1,0 +1,127 @@
+<section class="product-details-page">
+  <div class="pd-background">
+    <div class="pd-orb orb-left"></div>
+    <div class="pd-orb orb-right"></div>
+    <div class="pd-grid"></div>
+  </div>
+
+  <div class="container position-relative">
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="back-button-wrapper">
+          <button
+            class="back-button"
+            (click)="goBack()"
+            title="{{ isAdminContext ? 'Back to Admin Products' : 'Back to All Products' }}"
+          >
+            <i class="fas fa-arrow-left"></i>
+            <span>{{ isAdminContext ? 'Back to Admin Products' : 'Back to Products' }}</span>
+          </button>
+        </div>
+        <p class="badge-text">Product</p>
+        <h1 class="pd-title">
+          {{ product.name }}
+        </h1>
+        <p class="pd-subtitle">
+          {{ product.shortDescription }}
+        </p>
+      </div>
+    </div>
+
+    <div class="row g-4 align-items-start">
+      <div class="col-lg-6">
+        <app-product-image-gallery
+          [imageUrl]="imageUrl"
+          [productName]="product.name"
+          [colorLabel]="selectedColor?.label || ''"
+        ></app-product-image-gallery>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="pd-right-column">
+          <app-product-info
+            [product]="product"
+            [finalPricePerItem]="finalPricePerItem"
+            [totalPrice]="totalPrice"
+            [quantity]="quantity"
+            [selectedColorLabel]="selectedColor?.label || ''"
+            [selectedCustomizationName]="selectedCustomization?.name || ''"
+            [wishlistActive]="wishlistActive"
+            (wishlistToggle)="onToggleWishlist()"
+          ></app-product-info>
+
+          <div class="pd-section mt-2" *ngIf="hasSizes">
+            <div class="sizes-label-row">
+              <span class="sizes-title">Available sizes</span>
+              <span class="sizes-helper" *ngIf="!selectedSize">Choose one</span>
+            </div>
+            <div class="sizes-chips">
+              <button
+                type="button"
+                class="size-chip"
+                *ngFor="let size of product.availableSizes"
+                [class.selected]="size === selectedSize"
+                (click)="selectedSize = size"
+              >
+                {{ size }}
+              </button>
+            </div>
+          </div>
+
+          <div class="pd-section mt-3">
+            <app-product-color-selector
+              [colors]="product.colors"
+              [selectedKey]="selectedColorKey"
+              [selectedLabel]="selectedColor?.label || product.colors[0]?.label || ''"
+              (selectedChange)="onColorSelected($event)"
+            ></app-product-color-selector>
+          </div>
+
+          <!--<div class="pd-section mt-3">
+            <app-product-customization-options
+              [options]="product.customizations"
+              [selectedId]="selectedCustomizationId"
+              (selectedChange)="onCustomizationSelected($event)"
+            ></app-product-customization-options>
+          </div>-->
+
+          <div class="pd-section mt-3" *ngIf="canUseAiCustomization">
+            <div class="ai-custom-card">
+              <div class="ai-custom-icon">
+                <i class="fas fa-sparkles"></i>
+              </div>
+              <div class="ai-custom-body">
+                <h3 class="ai-custom-title">Customize with AI</h3>
+                <p class="ai-custom-text">
+                  Turn this {{ selectedColor?.label || 'product' }} into a one-of-a-kind piece by
+                  generating a custom print in our AI studio.
+                </p>
+                <button
+                  type="button"
+                  class="btn btn-outline-light btn-sm ai-custom-btn"
+                  (click)="onStartCustomDesign()"
+                >
+                  <span>Start custom design</span>
+                  <i class="fas fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="pd-section mt-4">
+            <app-add-to-cart-button
+              [inStock]="product.inStock"
+              [quantity]="quantity"
+              [finalPricePerItem]="finalPricePerItem"
+              [totalPrice]="totalPrice"
+              [canAdd]="canAddToCart && !isAddingToCart"
+              [hint]="addToCartHint"
+              (quantityChange)="onQuantityChange($event)"
+              (addToCart)="onAddToCart()"
+            ></app-add-to-cart-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
